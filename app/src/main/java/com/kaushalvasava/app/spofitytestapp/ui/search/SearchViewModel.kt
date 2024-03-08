@@ -1,6 +1,5 @@
 package com.kaushalvasava.app.spofitytestapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kaushalvasava.app.spofitytestapp.data.local.repo.HistoryRepo
@@ -49,14 +48,12 @@ class SearchViewModel @Inject constructor(
         _dataFlow
 
     init {
-        fetchStoredData()
         getSearchQueryResult(searchQueryFlow.value)
     }
 
-    fun fetchStoredData() {
+    private fun fetchStoredData() {
         viewModelScope.launch(Dispatchers.IO) {
             historyRepo.getAllAlbums().collectLatest {
-                Log.d("TAG", "stored data ${it.size}")
                 val d = albumMapper.to(it)
                 val albums = Albums(
                     href = "",
@@ -82,7 +79,6 @@ class SearchViewModel @Inject constructor(
 
     fun getSearchQueryResult(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("TAG", "getSearchQueryResult: $query and ${searchQueryFlow.value}")
             if (query != searchQueryFlow.value) {
                 // debounce logic to do not call search api for every minor query changes
                 delay(500L)
@@ -92,13 +88,9 @@ class SearchViewModel @Inject constructor(
                     query.lowercase(),
                     "album,artist,playlist,track,show,episode"
                 )
-                Log.d(
-                    "TAG",
-                    "getSearchQueryResult: episode ${data.episodes?.items?.size} show ${data.shows?.items?.size},  track ${data.tracks?.items?.size}"
-                )
                 _dataFlow.value = data
             }) {
-                Log.d("TAG", "getToken: ${it.message}")
+                fetchStoredData()
             }
         }
     }
@@ -113,6 +105,7 @@ class SearchViewModel @Inject constructor(
 
     fun storeData() {
         viewModelScope.launch(Dispatchers.IO) {
+            historyRepo.deleteAllAlbums()
             dataFlow.value.albums?.items?.map {
                 historyRepo.upsertAlbum(
                     albumMapper.from(it)

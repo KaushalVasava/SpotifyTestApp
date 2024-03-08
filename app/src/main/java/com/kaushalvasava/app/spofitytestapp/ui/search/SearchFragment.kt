@@ -1,7 +1,6 @@
 package com.kaushalvasava.app.spofitytestapp.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,12 +29,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 
-private const val TAG = "TAG"
-
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding
+        get() = _binding!!
     private val searchViewModel: SearchViewModel by viewModels()
 
     private val navController: NavController by lazy {
@@ -52,7 +51,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -223,15 +222,18 @@ class SearchFragment : Fragment() {
         }
     }
 
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop: ")
-        searchViewModel.storeData()
-    }
-
     private fun showLoading(isVisible: Boolean) {
         binding.progressBar.isVisible = isVisible
         binding.recyclerView.isVisible = !isVisible
+    }
+
+    override fun onStop() {
+        super.onStop()
+        searchViewModel.storeData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

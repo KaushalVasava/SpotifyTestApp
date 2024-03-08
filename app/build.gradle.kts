@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
@@ -19,6 +23,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val properties = Properties().apply {
+            load(FileInputStream(File(rootProject.rootDir, "local.properties")))
+        }
+        buildConfigField("String", "CLIENT_ID", "\"${properties.getProperty("CLIENT_ID")}\"")
+        buildConfigField("String", "CLIENT_SECRET", "\"${properties.getProperty("CLIENT_SECRET")}\"")
     }
 
     buildTypes {
@@ -38,6 +48,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 }
