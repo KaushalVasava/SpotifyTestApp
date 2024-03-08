@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.search.SearchFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_showFragment"
+            app:destination="@id/showFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_albumFragment"
+            app:destination="@id/albumFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_trackFragment"
+            app:destination="@id/trackFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_episodeFragment"
+            app:destination="@id/episodeFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.album.AlbumFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_album" >
+        <argument
+            android:name="album"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.album.Album" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.artist.ArtistFragment"
+        android:label="fragment_artist"
+        tools:layout="@layout/fragment_artist" >
+        <argument
+            android:name="artist"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.artist.Artist" />
+    </fragment>
+    <fragment
+        android:id="@+id/showFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.show.ShowFragment"
+        android:label="fragment_show"
+        tools:layout="@layout/fragment_show" >
+        <argument
+            android:name="show"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.show.Show" />
+    </fragment>
+    <fragment
+        android:id="@+id/episodeFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.episode.EpisodeFragment"
+        android:label="fragment_episode"
+        tools:layout="@layout/fragment_episode" >
+        <argument
+            android:name="episode"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.episode.Episode" />
+    </fragment>
+    <fragment
+        android:id="@+id/trackFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.track.TrackFragment"
+        android:label="fragment_track"
+        tools:layout="@layout/fragment_track" >
+        <argument
+            android:name="track"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.track.Track" />
+    </fragment>
+    <fragment
+        android:id="@+id/playlistFragment"
+        android:name="com.kaushalvasava.app.spofitytestapp.ui.playlist.PlaylistFragment"
+        android:label="PlaylistFragment" >
+        <argument
+            android:name="playlist"
+            app:argType="com.kaushalvasava.app.spofitytestapp.data.remote.model.playlist.Playlist" />
+    </fragment>
+</navigation>

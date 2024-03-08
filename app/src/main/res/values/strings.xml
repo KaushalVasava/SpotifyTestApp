@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Spotify App</string>
+    <string name="artists">Artists</string>
+    <string name="albums">Albums</string>
+    <string name="tracks">Tracks</string>
+    <string name="playlists">Playlists</string>
+    <string name="shows">Shows</string>
+    <string name="episodes">Episoes</string>
+    <string name="followers_count">Followers: %d</string>
+    <string name="popularity_count">Popularity: %d</string>
+    <string name="total_tracks">Total tracks: %d</string>
+    <string name="release_date">Release date: %s</string>
+    <string name="track_number">Track number: %d</string>
+    <string name="total_episodes">Total episodes: %d</string>
+    <string name="search_hint">Search Album, Artist, Track, Episodes...</string>
+</resources>
